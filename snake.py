@@ -2,6 +2,7 @@ import turtle
 import random
 drawer = turtle.clone()
 
+turtle.bgcolor('lightblue')
 
 drawer.penup()
 drawer.goto(-400 , 250)
@@ -21,7 +22,7 @@ turtle.setup(SIZE_X,SIZE_Y)
 turtle.penup()
 
 SQUARE_SIZE = 20
-START_LENGTH = 3
+START_LENGTH = 1
 score = 0
 
 
@@ -32,7 +33,7 @@ food_stamps = []
 
 snake = turtle.clone()
 snake.shape("square")
-
+snake.color('darkblue')
 turtle.register_shape("trash.gif")
 
 food = turtle.clone()
@@ -148,7 +149,7 @@ def move_snake():
 
 
     # here
-    global food_stamps, food_pos
+    global food_stamps, food_pos, score
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
@@ -160,14 +161,16 @@ def move_snake():
         stamp_list.append(bodystamp)
         pos_list.append(bodystamp)
 
-    global score
-    if snake.pos() in food_pos:
-        score = turtle.clone()
         score = score + 1
-        score_list.append(score)
-        score_turtle.clear()
-        score_turtle.write("SCORE : "+ str(score))
-    
+        #score_list.append(score)
+        turtle.clear()
+        turtle.write("SCORE : "+ str(score))
+
+        #global a
+        #a = a+1
+        #score = turtle.clone()
+        #score.clear()
+        #score.write(a)
         
             
 ######
