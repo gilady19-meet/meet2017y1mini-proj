@@ -5,11 +5,12 @@ turtle.tracer(1,0)
 
 SIZE_X=800
 SIZE_Y=500
-
+turtle.setup(SIZE_X,SIZE_Y)
 turtle.penup()
 
 SQUARE_SIZE = 20
-START_LENGTH = 7
+START_LENGTH = 2
+
 
 pos_list = []
 stamp_list = []
@@ -55,10 +56,10 @@ RIGHT = 3
 
 direction = UP
 
-UP_EDGE = 250
-DOWN_EDGE = -250
-RIGHT_EDGE = 400
-LEFT_EDGE = -400
+UP_EDGE = SIZE_Y/2
+DOWN_EDGE = -SIZE_Y/2
+RIGHT_EDGE = SIZE_X/2
+LEFT_EDGE = -SIZE_X/2
 
 def up():
     global direction
@@ -123,11 +124,14 @@ def move_snake():
         print("you moved down!")
 
     my_pos=snake.pos()
+
+    if snake.pos() in pos_list:
+        print("You hit yourself! Game over!")
+        quit()
+
     pos_list.append(my_pos)
     new_stamp = snake.stamp()
     stamp_list.append(new_stamp)
-    old_stamp = stamp_list.pop(0)
-    snake.clearstamp(old_stamp)
 
     # here
     global food_stamps, food_pos
@@ -138,10 +142,16 @@ def move_snake():
         food_stamps.pop(food_ind)
         print("You have eaten the food!")
         make_food()
-        #part 8
+        bodystamp  = snake.stamp()
+        stamp_list.append(bodystamp)
+        stamp_list.append(pos_list)
 
+            
+######
+    old_stamp = stamp_list.pop(0)
+    snake.clearstamp(old_stamp)
     pos_list.pop(0)
-
+#######
     new_pos = snake.pos()
     new_x_pos = my_pos[0]
     new_y_pos = my_pos[1]
@@ -173,3 +183,4 @@ make_food()
     
 
     
+
